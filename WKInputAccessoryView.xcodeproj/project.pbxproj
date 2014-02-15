@@ -22,6 +22,7 @@
 		680B9CCF18AFA7F2007F57ED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 680B9CCD18AFA7F2007F57ED /* InfoPlist.strings */; };
 		680B9CD118AFA7F2007F57ED /* WKInputAccessoryViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 680B9CD018AFA7F2007F57ED /* WKInputAccessoryViewTests.m */; };
 		680B9CDD18AFA8FD007F57ED /* WKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 680B9CDC18AFA8FD007F57ED /* WKInputAccessoryView.m */; };
+		680B9CE018AFAE86007F57ED /* WKInputAccessoryViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 680B9CDF18AFAE86007F57ED /* WKInputAccessoryViewButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		680B9CD018AFA7F2007F57ED /* WKInputAccessoryViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKInputAccessoryViewTests.m; sourceTree = "<group>"; };
 		680B9CDB18AFA8FD007F57ED /* WKInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WKInputAccessoryView.h; path = WKInputAccessoryView/WKInputAccessoryView.h; sourceTree = "<group>"; };
 		680B9CDC18AFA8FD007F57ED /* WKInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WKInputAccessoryView.m; path = WKInputAccessoryView/WKInputAccessoryView.m; sourceTree = "<group>"; };
+		680B9CDE18AFAE86007F57ED /* WKInputAccessoryViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WKInputAccessoryViewButton.h; path = WKInputAccessoryView/WKInputAccessoryViewButton.h; sourceTree = "<group>"; };
+		680B9CDF18AFAE86007F57ED /* WKInputAccessoryViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WKInputAccessoryViewButton.m; path = WKInputAccessoryView/WKInputAccessoryViewButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,8 @@
 			children = (
 				680B9CDB18AFA8FD007F57ED /* WKInputAccessoryView.h */,
 				680B9CDC18AFA8FD007F57ED /* WKInputAccessoryView.m */,
+				680B9CDE18AFAE86007F57ED /* WKInputAccessoryViewButton.h */,
+				680B9CDF18AFAE86007F57ED /* WKInputAccessoryViewButton.m */,
 			);
 			name = WKInputAccessoryView;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				680B9CBC18AFA7F2007F57ED /* ViewController.m in Sources */,
 				680B9CB618AFA7F2007F57ED /* AppDelegate.m in Sources */,
 				680B9CDD18AFA8FD007F57ED /* WKInputAccessoryView.m in Sources */,
+				680B9CE018AFAE86007F57ED /* WKInputAccessoryViewButton.m in Sources */,
 				680B9CB218AFA7F2007F57ED /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

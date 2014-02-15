@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WKInputAccessoryView : UIView
-
+@interface WKInputAccessoryView : UIView{
+    
+}
+-(instancetype)initWithTargetTextView:(UITextView*)textView;
 @end
