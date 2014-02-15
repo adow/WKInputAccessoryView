@@ -21,6 +21,7 @@
 		680B9CC718AFA7F2007F57ED /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680B9CA918AFA7F2007F57ED /* UIKit.framework */; };
 		680B9CCF18AFA7F2007F57ED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 680B9CCD18AFA7F2007F57ED /* InfoPlist.strings */; };
 		680B9CD118AFA7F2007F57ED /* WKInputAccessoryViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 680B9CD018AFA7F2007F57ED /* WKInputAccessoryViewTests.m */; };
+		680B9CDD18AFA8FD007F57ED /* WKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 680B9CDC18AFA8FD007F57ED /* WKInputAccessoryView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		680B9CCC18AFA7F2007F57ED /* WKInputAccessoryViewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WKInputAccessoryViewTests-Info.plist"; sourceTree = "<group>"; };
 		680B9CCE18AFA7F2007F57ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		680B9CD018AFA7F2007F57ED /* WKInputAccessoryViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKInputAccessoryViewTests.m; sourceTree = "<group>"; };
+		680B9CDB18AFA8FD007F57ED /* WKInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WKInputAccessoryView.h; path = WKInputAccessoryView/WKInputAccessoryView.h; sourceTree = "<group>"; };
+		680B9CDC18AFA8FD007F57ED /* WKInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WKInputAccessoryView.m; path = WKInputAccessoryView/WKInputAccessoryView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,7 @@
 		680B9CAB18AFA7F2007F57ED /* WKInputAccessoryView */ = {
 			isa = PBXGroup;
 			children = (
+				680B9CDA18AFA8D9007F57ED /* WKInputAccessoryView */,
 				680B9CB418AFA7F2007F57ED /* AppDelegate.h */,
 				680B9CB518AFA7F2007F57ED /* AppDelegate.m */,
 				680B9CB718AFA7F2007F57ED /* Main.storyboard */,
@@ -150,6 +154,15 @@
 				680B9CCD18AFA7F2007F57ED /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		680B9CDA18AFA8D9007F57ED /* WKInputAccessoryView */ = {
+			isa = PBXGroup;
+			children = (
+				680B9CDB18AFA8FD007F57ED /* WKInputAccessoryView.h */,
+				680B9CDC18AFA8FD007F57ED /* WKInputAccessoryView.m */,
+			);
+			name = WKInputAccessoryView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +264,7 @@
 			files = (
 				680B9CBC18AFA7F2007F57ED /* ViewController.m in Sources */,
 				680B9CB618AFA7F2007F57ED /* AppDelegate.m in Sources */,
+				680B9CDD18AFA8FD007F57ED /* WKInputAccessoryView.m in Sources */,
 				680B9CB218AFA7F2007F57ED /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +392,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WKInputAccessoryView/WKInputAccessoryView-Prefix.pch";
 				INFOPLIST_FILE = "WKInputAccessoryView/WKInputAccessoryView-Info.plist";
@@ -391,6 +406,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WKInputAccessoryView/WKInputAccessoryView-Prefix.pch";
 				INFOPLIST_FILE = "WKInputAccessoryView/WKInputAccessoryView-Info.plist";
