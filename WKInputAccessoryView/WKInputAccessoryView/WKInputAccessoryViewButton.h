@@ -27,4 +27,5 @@ typedef enum WKInputAccessoryViewButtonCursorPositionInString:NSUInteger{
 @property (nonatomic,copy) NSString* insertString;
 ///插入字符串后光标锁在的位置
 @property (nonatomic,assign) int cursorPositionInString;
+-(instancetype)initWithFrame:(CGRect)frame titleString:(NSString*)titleString insertString:(NSString*)insertString;
 @end

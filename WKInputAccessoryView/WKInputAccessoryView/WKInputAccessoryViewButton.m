@@ -18,7 +18,15 @@
     }
     return self;
 }
-
+-(instancetype)initWithFrame:(CGRect)frame titleString:(NSString *)titleString insertString:(NSString *)insertString{
+    self=[super initWithFrame:frame];
+    if (self){
+        self.backgroundColor=[UIColor lightGrayColor];
+        self.insertString=insertString;
+        [self setTitle:titleString forState:UIControlStateNormal];
+    }
+    return self;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
