@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "WKInputAccessoryView.h"
-
+#import "WKInputAccessoryViewInsertStringBundle.h"
 @interface ViewController ()
 
 @end
@@ -29,6 +29,9 @@
     
     WKInputAccessoryView* inputAcccessoryView=[[[WKInputAccessoryView alloc]initWithTargetTextView:textView] autorelease];
     textView.inputAccessoryView=inputAcccessoryView;
+    
+    NSArray* list=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringListForSelection];
+    NSLog(@"%@",list);
 }
 
 - (void)didReceiveMemoryWarning

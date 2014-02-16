@@ -22,6 +22,7 @@
     self=[super initWithFrame:frame];
     if (self){
         self.backgroundColor=[UIColor lightGrayColor];
+        self.cursorPositionInString=WKINPUTACCESSORYVIEWBUTTON_CURSION_POSITION_ENDOFINSERTPOSITION;
         self.insertString=insertString;
         [self setTitle:titleString forState:UIControlStateNormal];
     }

@@ -41,7 +41,8 @@
         _button_4=[[WKInputAccessoryViewButton alloc]initWithFrame:buttonFrame titleString:@">" insertString:@">"];
         [_button_4 addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_button_4];
-        _button_5=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, -44.0f, 0.0f) titleString:@"<" insertString:@"<"];
+        _button_5=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, -44.0f, 0.0f) titleString:@"<" insertString:@"<>"];
+        _button_5.cursorPositionInString=1;
         [_button_5 addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_button_5];
         _button_6=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, -88.0f, 0.0f) titleString:@"'" insertString:@"'"];
@@ -76,8 +77,12 @@
     NSString* string_1=[self.targetTextView.text substringToIndex:range.location];
     NSString* string_2=[self.targetTextView.text substringFromIndex:range.location];
     NSString* string_3=[NSString stringWithFormat:@"%@%@%@",string_1,button.insertString,string_2];
-    NSLog(@"%@",string_3);
-    range.location+=button.insertString.length;
+    if (button.cursorPositionInString==WKINPUTACCESSORYVIEWBUTTON_CURSION_POSITION_ENDOFINSERTPOSITION){
+        range.location+=button.insertString.length;
+    }
+    else{
+        range.location+=button.cursorPositionInString;
+    }
     self.targetTextView.text=string_3;
     self.targetTextView.selectedRange=range;
     self.targetTextView.scrollEnabled=YES;
