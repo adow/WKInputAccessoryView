@@ -7,7 +7,7 @@
 //
 
 #import "WKInputAccessoryViewButton.h"
-
+#import "WKInputAccessoryViewInsertStringBundle.h"
 @implementation WKInputAccessoryViewButton
 
 - (id)initWithFrame:(CGRect)frame
@@ -18,13 +18,13 @@
     }
     return self;
 }
--(instancetype)initWithFrame:(CGRect)frame titleString:(NSString *)titleString insertString:(NSString *)insertString{
+-(instancetype)initWithFrame:(CGRect)frame indexOfInsertStringBundle:(int)index{
     self=[super initWithFrame:frame];
     if (self){
         self.backgroundColor=[UIColor lightGrayColor];
-        self.cursorPositionInString=WKINPUTACCESSORYVIEWBUTTON_CURSION_POSITION_ENDOFINSERTPOSITION;
-        self.insertString=insertString;
-        [self setTitle:titleString forState:UIControlStateNormal];
+        self.indexOfInsertStringBundle=index;
+        WKInputAccessoryViewInsertString* insertString=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringAtPosition:index];
+        [self setTitle:insertString.titleString forState:UIControlStateNormal];
     }
     return self;
 }
@@ -37,7 +37,6 @@
 }
 */
 -(void)dealloc{
-    [_insertString release];
     [super dealloc];
 }
 @end

@@ -30,8 +30,6 @@
     WKInputAccessoryView* inputAcccessoryView=[[[WKInputAccessoryView alloc]initWithTargetTextView:textView] autorelease];
     textView.inputAccessoryView=inputAcccessoryView;
     
-    NSArray* list=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringListForSelection];
-    NSLog(@"%@",list);
 }
 
 - (void)didReceiveMemoryWarning
