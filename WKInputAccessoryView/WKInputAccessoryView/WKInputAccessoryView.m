@@ -30,31 +30,57 @@
         self.targetTextView=textView;
         self.backgroundColor=[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
         CGRect buttonFrame=CGRectMake(2.0f, 2.0f, 40.0f, 40.0f);
+        
+        
         _button_1=[[WKInputAccessoryViewButton alloc]initWithFrame:buttonFrame indexOfInsertStringBundle:0];
         _button_1.tag=0;
         [_button_1 addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_button_1];
+        UILongPressGestureRecognizer* longPressGesture_1=[[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(onLongPressGesture:)] autorelease];
+        longPressGesture_1.cancelsTouchesInView=YES;
+        [_button_1 addGestureRecognizer:longPressGesture_1];
+        
         _button_2=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, 44.0f, 0.0f) indexOfInsertStringBundle:1];
         _button_2.tag=1;
         [_button_2 addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_button_2];
+        UILongPressGestureRecognizer* longPressGesture_2=[[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(onLongPressGesture:)] autorelease];
+        longPressGesture_2.cancelsTouchesInView=YES;
+        [_button_2 addGestureRecognizer:longPressGesture_2];
+        
         _button_3=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, 88.0f, 0.0f) indexOfInsertStringBundle:2];
         _button_3.tag=2;
         [_button_3 addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_button_3];
+        UILongPressGestureRecognizer* longPressGesture_3=[[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(onLongPressGesture:)] autorelease];
+        longPressGesture_3.cancelsTouchesInView=YES;
+        [_button_3 addGestureRecognizer:longPressGesture_3];
+        
         buttonFrame=CGRectMake(320.0f-42.0f, 2.0f, 40.0f, 40.0f);
         _button_4=[[WKInputAccessoryViewButton alloc]initWithFrame:buttonFrame indexOfInsertStringBundle:3];
         _button_4.tag=3;
         [_button_4 addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_button_4];
+        UILongPressGestureRecognizer* longPressGesture_4=[[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(onLongPressGesture:)] autorelease];
+        longPressGesture_4.cancelsTouchesInView=YES;
+        [_button_4 addGestureRecognizer:longPressGesture_4];
+        
         _button_5=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, -44.0f, 0.0f) indexOfInsertStringBundle:4];
         _button_5.tag=4;
         [_button_5 addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_button_5];
+        UILongPressGestureRecognizer* longPressGesture_5=[[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(onLongPressGesture:)] autorelease];
+        longPressGesture_5.cancelsTouchesInView=YES;
+        [_button_5 addGestureRecognizer:longPressGesture_5];
+        
         _button_6=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, -88.0f, 0.0f) indexOfInsertStringBundle:5];
         _button_6.tag=5;
         [_button_6 addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_button_6];
+        UILongPressGestureRecognizer* longPressGesture_6=[[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(onLongPressGesture:)] autorelease];
+        longPressGesture_6.cancelsTouchesInView=YES;
+        [_button_6 addGestureRecognizer:longPressGesture_6];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardWillShowNotification object:nil];
@@ -103,24 +129,33 @@
 }
 -(IBAction)onButton:(id)sender{
     WKInputAccessoryViewButton* button=(WKInputAccessoryViewButton*)sender;
-//    int index=button.indexOfInsertStringBundle;
-//    WKInputAccessoryViewInsertString* insertString=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringAtPosition:index];
-//    self.targetTextView.scrollEnabled=NO;
-//    NSRange range=self.targetTextView.selectedRange;
-//    NSString* string_1=[self.targetTextView.text substringToIndex:range.location];
-//    NSString* string_2=[self.targetTextView.text substringFromIndex:range.location];
-//    NSString* string_3=[NSString stringWithFormat:@"%@%@%@",string_1,insertString.insertString,string_2];
-//    if (insertString.cursorPositionInString==WKINPUTACCESSORYVIEWBUTTON_CURSION_POSITION_ENDOFINSERTPOSITION){
-//        range.location+=insertString.insertString.length;
-//    }
-//    else{
-//        range.location+=insertString.cursorPositionInString;
-//    }
-//    self.targetTextView.text=string_3;
-//    self.targetTextView.selectedRange=range;
-//    self.targetTextView.scrollEnabled=YES;
-    [self showInsertStringViewControllerForButonPosition:button.tag];
+    int index=button.indexOfInsertStringBundle;
+    WKInputAccessoryViewInsertString* insertString=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringAtPosition:index];
+    self.targetTextView.scrollEnabled=NO;
+    NSRange range=self.targetTextView.selectedRange;
+    NSString* string_1=[self.targetTextView.text substringToIndex:range.location];
+    NSString* string_2=[self.targetTextView.text substringFromIndex:range.location];
+    NSString* string_3=[NSString stringWithFormat:@"%@%@%@",string_1,insertString.insertString,string_2];
+    if (insertString.cursorPositionInString==WKINPUTACCESSORYVIEWBUTTON_CURSION_POSITION_ENDOFINSERTPOSITION){
+        range.location+=insertString.insertString.length;
+    }
+    else{
+        range.location+=insertString.cursorPositionInString;
+    }
+    self.targetTextView.text=string_3;
+    self.targetTextView.selectedRange=range;
+    self.targetTextView.scrollEnabled=YES;
+//    [self showInsertStringViewControllerForButonPosition:button.tag];
 }
+-(void)onLongPressGesture:(UIGestureRecognizer*)recognizer{
+    if (recognizer.state==UIGestureRecognizerStateBegan){
+        NSLog(@"longpress");
+        WKInputAccessoryViewButton* button=(WKInputAccessoryViewButton*)recognizer.view;
+        int index=button.indexOfInsertStringBundle;
+        [self showInsertStringViewControllerForButonPosition:index];
+    }
+}
+///显示字符选择界面，为哪个按钮设置
 -(void)showInsertStringViewControllerForButonPosition:(int)position{
     _storeTextViewRange=self.targetTextView.selectedRange;
     WKInputAccessoryInsertStringViewController* insertViewController=[[[WKInputAccessoryInsertStringViewController alloc]init] autorelease];
