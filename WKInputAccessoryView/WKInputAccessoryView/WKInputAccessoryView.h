@@ -12,6 +12,10 @@
 @interface WKInputAccessoryView : UIView{
     ///在键盘退出时记录光标的位置
     NSRange _storeTextViewRange;
+    ///记录键盘位置
+    CGRect _storeKeyboardFrame;
+    ///键盘
+    UIView* _keyboardView;
 }
 -(instancetype)initWithTargetTextView:(UITextView*)textView;
 @property (nonatomic,assign) UITextView* targetTextView;

@@ -9,6 +9,10 @@
 #import "WKInputAccessoryView.h"
 #import "WKInputAccessoryViewInsertStringBundle.h"
 #import "WKInputAccessoryInsertStringViewController.h"
+#define WKInputAccessoryViewTouchPadMoveKeyboardMaxY 100.0f ///移动键盘到这个位置就让键盘小时
+#define WKInputAccessoryViewTouchPadMoveKeyboardMinY 20.0f ///只有Y移动超过这么多才认为是在移动键盘
+#define WKInputAccessoryViewTouchPadMoveCursorMinX 20.0f ///只有x移动查过这么多才认为是在移动光标
+#define WKInputAccessoryViewTouchPadMoveCursorStep 30.0f ///每个字符的光标的移动距离
 @interface WKInputAccessoryView(){
     
 }
@@ -173,19 +177,66 @@
 }
 -(void)onPanGesture:(UIPanGestureRecognizer*)recognizer{
     if (recognizer.state==UIGestureRecognizerStateBegan){
+        ///保存开始的光标的位置
         _storeTextViewRange=self.targetTextView.selectedRange;
-    }
-    if (recognizer.state==UIGestureRecognizerStateChanged){
-        CGPoint tranlate=[recognizer translationInView:self];
-        NSLog(@"translate:%@",NSStringFromCGPoint(tranlate));
-        if (fabsf(tranlate.y>=20.0f)){
-            NSLog(@"move keyboard");
+        ///保存开始的键盘位置
+        for (UIWindow *window in [UIApplication sharedApplication].windows) {
+            for (UIView *keyBoard in window.subviews) {
+                if ([[keyBoard description] hasPrefix:@"<UIPeripheralHostView"]){
+                    _keyboardView=keyBoard;
+                    _storeKeyboardFrame=keyBoard.frame;
+                    break;
+                }
+            }
         }
-        else if (fabsf(tranlate.x)>=10.0f){
-            int move=tranlate.x/30.0f;
+    }
+    else if (recognizer.state==UIGestureRecognizerStateChanged){
+        CGPoint tranlate=[recognizer translationInView:self];
+//        NSLog(@"translate:%@",NSStringFromCGPoint(tranlate));
+        ///移动键盘
+        if (fabsf(tranlate.y>=WKInputAccessoryViewTouchPadMoveKeyboardMinY)){
+//            NSLog(@"move keyboard");
+            _keyboardView.frame=CGRectOffset(_storeKeyboardFrame, 0.0f, tranlate.y-WKInputAccessoryViewTouchPadMoveKeyboardMinY);
+            ///移动键盘很多了就直接取消键盘
+            if (tranlate.y>=WKInputAccessoryViewTouchPadMoveKeyboardMaxY){
+                [UIView animateWithDuration:0.1f animations:^{
+                    _keyboardView.frame=CGRectOffset(_storeKeyboardFrame, 0.0f, _storeKeyboardFrame.size.height);
+                } completion:^(BOOL finished) {
+                    ///先让键盘隐藏
+                    _keyboardView.hidden=YES;
+                    [self.targetTextView resignFirstResponder];
+                    ///恢复
+                    double delayInSeconds = 0.1;
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                        _keyboardView.hidden=NO;
+                        _keyboardView=nil;
+                    });
+                    
+                }];
+                
+            }
+        }
+        ///横向移动光标位置
+        else if (fabsf(tranlate.x)>=WKInputAccessoryViewTouchPadMoveCursorMinX){
+            int move=tranlate.x/WKInputAccessoryViewTouchPadMoveCursorStep;
             NSRange range=_storeTextViewRange;
             range.location+=move;
             self.targetTextView.selectedRange=range;
+        }
+    }
+    else if (recognizer.state==UIGestureRecognizerStateEnded){
+        ///如果键盘移动位置不够就返回原来位置
+        CGPoint translate=[recognizer translationInView:self];
+        if (translate.y<WKInputAccessoryViewTouchPadMoveKeyboardMaxY){
+            [UIView animateWithDuration:0.1f animations:^{
+                _keyboardView.frame=_storeKeyboardFrame;
+            } completion:^(BOOL finished) {
+                _keyboardView=nil;
+            }];
+        }
+        else{
+            
         }
     }
 }
