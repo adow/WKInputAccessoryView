@@ -59,6 +59,13 @@ static WKInputAccessoryViewInsertStringBundle* _insertStringBundle;
     [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@")" titleString:@")"]];
     [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"[]" titleString:@"[" cursorPosition:1]];
     [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"]" titleString:@"]"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@":" titleString:@":"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"-" titleString:@"-"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"_" titleString:@"_"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"    " titleString:@"Tab"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"/" titleString:@"/"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"\\" titleString:@"\\"]];
+    
     for (int a=0; a<total; a++) {
         _usingInsertStringIndexList[a]=[NSNumber numberWithInt:a];
     }
