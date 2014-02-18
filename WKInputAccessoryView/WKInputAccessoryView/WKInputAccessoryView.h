@@ -10,10 +10,12 @@
 #import "WKInputAccessoryViewButton.h"
 
 @interface WKInputAccessoryView : UIView{
-    
+    ///在键盘退出时记录光标的位置
+    NSRange _storeTextViewRange;
 }
 -(instancetype)initWithTargetTextView:(UITextView*)textView;
 @property (nonatomic,assign) UITextView* targetTextView;
+@property (nonatomic,assign) UIViewController* parentViewControler;
 @property (nonatomic,retain) WKInputAccessoryViewButton* button_1;
 @property (nonatomic,retain) WKInputAccessoryViewButton* button_2;
 @property (nonatomic,retain) WKInputAccessoryViewButton* button_3;

@@ -24,6 +24,7 @@
 		680B9CDD18AFA8FD007F57ED /* WKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 680B9CDC18AFA8FD007F57ED /* WKInputAccessoryView.m */; };
 		680B9CE018AFAE86007F57ED /* WKInputAccessoryViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 680B9CDF18AFAE86007F57ED /* WKInputAccessoryViewButton.m */; };
 		680B9CE318B0FDE4007F57ED /* WKInputAccessoryViewInsertStringBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 680B9CE218B0FDE4007F57ED /* WKInputAccessoryViewInsertStringBundle.m */; };
+		68FBEEF318B2510F001FBF0E /* WKInputAccessoryInsertStringViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FBEEF218B2510F001FBF0E /* WKInputAccessoryInsertStringViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,8 @@
 		680B9CDF18AFAE86007F57ED /* WKInputAccessoryViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WKInputAccessoryViewButton.m; path = WKInputAccessoryView/WKInputAccessoryViewButton.m; sourceTree = "<group>"; };
 		680B9CE118B0FDE4007F57ED /* WKInputAccessoryViewInsertStringBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WKInputAccessoryViewInsertStringBundle.h; path = WKInputAccessoryView/WKInputAccessoryViewInsertStringBundle.h; sourceTree = "<group>"; };
 		680B9CE218B0FDE4007F57ED /* WKInputAccessoryViewInsertStringBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WKInputAccessoryViewInsertStringBundle.m; path = WKInputAccessoryView/WKInputAccessoryViewInsertStringBundle.m; sourceTree = "<group>"; };
+		68FBEEF118B2510F001FBF0E /* WKInputAccessoryInsertStringViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WKInputAccessoryInsertStringViewController.h; path = WKInputAccessoryView/WKInputAccessoryInsertStringViewController.h; sourceTree = "<group>"; };
+		68FBEEF218B2510F001FBF0E /* WKInputAccessoryInsertStringViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WKInputAccessoryInsertStringViewController.m; path = WKInputAccessoryView/WKInputAccessoryInsertStringViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +174,8 @@
 				680B9CDF18AFAE86007F57ED /* WKInputAccessoryViewButton.m */,
 				680B9CE118B0FDE4007F57ED /* WKInputAccessoryViewInsertStringBundle.h */,
 				680B9CE218B0FDE4007F57ED /* WKInputAccessoryViewInsertStringBundle.m */,
+				68FBEEF118B2510F001FBF0E /* WKInputAccessoryInsertStringViewController.h */,
+				68FBEEF218B2510F001FBF0E /* WKInputAccessoryInsertStringViewController.m */,
 			);
 			name = WKInputAccessoryView;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 				680B9CDD18AFA8FD007F57ED /* WKInputAccessoryView.m in Sources */,
 				680B9CE018AFAE86007F57ED /* WKInputAccessoryViewButton.m in Sources */,
 				680B9CE318B0FDE4007F57ED /* WKInputAccessoryViewInsertStringBundle.m in Sources */,
+				68FBEEF318B2510F001FBF0E /* WKInputAccessoryInsertStringViewController.m in Sources */,
 				680B9CB218AFA7F2007F57ED /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

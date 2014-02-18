@@ -23,8 +23,7 @@
     if (self){
         self.backgroundColor=[UIColor lightGrayColor];
         self.indexOfInsertStringBundle=index;
-        WKInputAccessoryViewInsertString* insertString=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringAtPosition:index];
-        [self setTitle:insertString.titleString forState:UIControlStateNormal];
+        [self refreshButtonTitle];
     }
     return self;
 }
@@ -38,5 +37,9 @@
 */
 -(void)dealloc{
     [super dealloc];
+}
+-(void)refreshButtonTitle{
+    WKInputAccessoryViewInsertString* insertString=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringAtPosition:self.indexOfInsertStringBundle];
+    [self setTitle:insertString.titleString forState:UIControlStateNormal];
 }
 @end

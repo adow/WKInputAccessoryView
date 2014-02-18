@@ -15,4 +15,6 @@
 @property (nonatomic,assign) int indexOfInsertStringBundle;
 ///指定使用符号列表中的第几个元素
 -(instancetype)initWithFrame:(CGRect)frame indexOfInsertStringBundle:(int)index;
+///更新按钮
+-(void)refreshButtonTitle;
 @end

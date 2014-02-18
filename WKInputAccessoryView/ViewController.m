@@ -28,6 +28,7 @@
     [textView becomeFirstResponder];
     
     WKInputAccessoryView* inputAcccessoryView=[[[WKInputAccessoryView alloc]initWithTargetTextView:textView] autorelease];
+    inputAcccessoryView.parentViewControler=self;
     textView.inputAccessoryView=inputAcccessoryView;
     
 }

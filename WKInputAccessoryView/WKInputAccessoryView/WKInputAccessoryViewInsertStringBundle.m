@@ -105,7 +105,10 @@ static WKInputAccessoryViewInsertStringBundle* _insertStringBundle;
     [_usingInsertStringIndexList addObjectsFromArray:array];
 }
 -(void)setInsertStringIndex:(int)index atPosition:(int)position{
-    _usingInsertStringIndexList[position]=[NSNumber numberWithInt:index];
+    NSNumber* number_in_selection_list=[self insertStringListForSelection][index];
+    ///在整个列表中是第几个
+    int index_in_all_list=[_allInserStringList indexOfObject:number_in_selection_list];
+    _usingInsertStringIndexList[position]=[NSNumber numberWithInt:index_in_all_list];
     [self write];
 }
 -(WKInputAccessoryViewInsertString*)insertStringAtPosition:(int)position{
