@@ -56,6 +56,12 @@
         longPressGesture_3.cancelsTouchesInView=YES;
         [_button_3 addGestureRecognizer:longPressGesture_3];
         
+        UIView* touchPadView=[[[UIView alloc]initWithFrame:CGRectMake(132.0f, 2.0f, 56.0f, 40.0f)] autorelease];
+        touchPadView.backgroundColor=[UIColor grayColor];
+        [self addSubview:touchPadView];
+        UIPanGestureRecognizer* panGesture=[[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(onPanGesture:)] autorelease];
+        [touchPadView addGestureRecognizer:panGesture];
+        
         buttonFrame=CGRectMake(320.0f-42.0f, 2.0f, 40.0f, 40.0f);
         _button_4=[[WKInputAccessoryViewButton alloc]initWithFrame:buttonFrame indexOfInsertStringBundle:3];
         _button_4.tag=3;
@@ -164,6 +170,24 @@
     [self.parentViewControler presentViewController:navigationViewController animated:YES completion:^{
         
     }];
+}
+-(void)onPanGesture:(UIPanGestureRecognizer*)recognizer{
+    if (recognizer.state==UIGestureRecognizerStateBegan){
+        _storeTextViewRange=self.targetTextView.selectedRange;
+    }
+    if (recognizer.state==UIGestureRecognizerStateChanged){
+        CGPoint tranlate=[recognizer translationInView:self];
+        NSLog(@"translate:%@",NSStringFromCGPoint(tranlate));
+        if (fabsf(tranlate.y>=20.0f)){
+            NSLog(@"move keyboard");
+        }
+        else if (fabsf(tranlate.x)>=10.0f){
+            int move=tranlate.x/30.0f;
+            NSRange range=_storeTextViewRange;
+            range.location+=move;
+            self.targetTextView.selectedRange=range;
+        }
+    }
 }
 #pragma mark - Notification
 #pragma mark keyboard
