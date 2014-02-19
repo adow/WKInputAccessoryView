@@ -175,8 +175,10 @@
         
     }];
 }
+///Touch pad 移动
 -(void)onPanGesture:(UIPanGestureRecognizer*)recognizer{
     if (recognizer.state==UIGestureRecognizerStateBegan){
+        _keyboardRemoving=NO;
         ///保存开始的光标的位置
         _storeTextViewRange=self.targetTextView.selectedRange;
         ///保存开始的键盘位置
@@ -189,33 +191,44 @@
                 }
             }
         }
+        
     }
     else if (recognizer.state==UIGestureRecognizerStateChanged){
         CGPoint tranlate=[recognizer translationInView:self];
 //        NSLog(@"translate:%@",NSStringFromCGPoint(tranlate));
+        if (_keyboardRemoving)
+            return;
         ///移动键盘
         if (fabsf(tranlate.y>=WKInputAccessoryViewTouchPadMoveKeyboardMinY)){
 //            NSLog(@"move keyboard");
             _keyboardView.frame=CGRectOffset(_storeKeyboardFrame, 0.0f, tranlate.y-WKInputAccessoryViewTouchPadMoveKeyboardMinY);
             ///移动键盘很多了就直接取消键盘
             if (tranlate.y>=WKInputAccessoryViewTouchPadMoveKeyboardMaxY){
-                [UIView animateWithDuration:0.1f animations:^{
-                    _keyboardView.frame=CGRectOffset(_storeKeyboardFrame, 0.0f, _storeKeyboardFrame.size.height);
-                } completion:^(BOOL finished) {
-                    ///先让键盘隐藏
-                    _keyboardView.hidden=YES;
-                    [self.targetTextView resignFirstResponder];
-                    ///恢复
-                    double delayInSeconds = 0.1;
-                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                        _keyboardView.hidden=NO;
-                        _keyboardView=nil;
-                    });
-                    
-                }];
+                ///确保只会调用一次
+                    _keyboardRemoving=YES;
+                    [UIView animateWithDuration:0.1f animations:^{
+                        _keyboardView.frame=CGRectOffset(_storeKeyboardFrame, 0.0f, _storeKeyboardFrame.size.height);
+                    } completion:^(BOOL finished) {
+                        ///先让键盘隐藏
+                        _keyboardView.hidden=YES;
+                        [self.targetTextView resignFirstResponder];
+                        
+                        ///恢复
+                        double delayInSeconds = 0.5;
+                        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                            _keyboardView.hidden=NO;
+                            _keyboardView=nil;
+                        });
+                        if ([self.delegate respondsToSelector:@selector(targetTextViewDidCompleteEdit)]){
+                            [self.delegate targetTextViewDidCompleteEdit];
+                        }
+                        
+                    }];
+                }
                 
-            }
+            
+            
         }
         ///横向移动光标位置
         else if (fabsf(tranlate.x)>=WKInputAccessoryViewTouchPadMoveCursorMinX){

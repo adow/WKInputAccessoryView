@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "WKInputAccessoryView.h"
 #import "WKInputAccessoryViewInsertStringBundle.h"
-@interface ViewController ()
+@interface ViewController ()<WKInputAccessoryViewDelegate>
 
 @end
 
@@ -29,6 +29,7 @@
     
     WKInputAccessoryView* inputAcccessoryView=[[[WKInputAccessoryView alloc]initWithTargetTextView:textView] autorelease];
     inputAcccessoryView.parentViewControler=self;
+    inputAcccessoryView.delegate=self;
     textView.inputAccessoryView=inputAcccessoryView;
     
 }
@@ -38,5 +39,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+#pragma mark - WKInputAccessoryViewDelegate
+-(void)targetTextViewDidCompleteEdit{
+    NSLog(@"targetTextViewDidCompleteEdit");
+}
 @end
