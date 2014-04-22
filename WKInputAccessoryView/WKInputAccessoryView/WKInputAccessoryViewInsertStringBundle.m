@@ -7,6 +7,7 @@
 //
 
 #import "WKInputAccessoryViewInsertStringBundle.h"
+#define VISIBLE_BUTTONS_TOTAL 6 ///可见的按钮数量
 @implementation WKInputAccessoryViewInsertString
 -(instancetype)initWithInsertString:(NSString *)insertString titleString:(NSString*)titleString cursorPosition:(int)cursorPosition{
     self=[super init];
@@ -31,24 +32,26 @@
     [super dealloc];
 }
 -(NSString*)description{
-    return [NSString stringWithFormat:@"<0x%x %@ insertString=%@ titleString=%@ cursorPosition=%d",
+    return [NSString stringWithFormat:@"<0x%x %@ insertString=%@ titleString=%@ cursorPosition=%d>",
             (NSUInteger)self,
             [self class],self.insertString,self.titleString,self.cursorPositionInString];
 }
 @end
 @implementation WKInputAccessoryViewInsertStringBundle
-static WKInputAccessoryViewInsertStringBundle* _insertStringBundle;
+
 +(WKInputAccessoryViewInsertStringBundle*)sharedInsertStringBundle{
-    if (!_insertStringBundle){
+    static WKInputAccessoryViewInsertStringBundle* _insertStringBundle=nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         _insertStringBundle=[[super allocWithZone:NULL]init];
         [_insertStringBundle startUp];
-    }
+    });
     return _insertStringBundle;
 }
 -(void)startUp{
     _allInserStringList=[[NSMutableArray alloc]init];
-    const int total=6;
-    _usingInsertStringIndexList=[[NSMutableArray alloc]initWithCapacity:total];
+    
+    _usingInsertStringIndexList=[[NSMutableArray alloc]initWithCapacity:VISIBLE_BUTTONS_TOTAL];
     [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"#" titleString:@"#"]];
     [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"*" titleString:@"*"]];
     [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"\"\"" titleString:@"\"" cursorPosition:1]];
@@ -65,8 +68,36 @@ static WKInputAccessoryViewInsertStringBundle* _insertStringBundle;
     [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"    " titleString:@"Tab"]];
     [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"/" titleString:@"/"]];
     [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"\\" titleString:@"\\"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"+" titleString:@"+"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"|" titleString:@"|"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"{}" titleString:@"{" cursorPosition:1]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"}" titleString:@"}"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"@" titleString:@"@"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"%" titleString:@"%"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"&" titleString:@"*"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@";" titleString:@";"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"." titleString:@"."]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"," titleString:@","]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"。" titleString:@"。"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"?" titleString:@"?"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"✓" titleString:@"✓"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"✕" titleString:@"✕"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"$" titleString:@"$"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"￥" titleString:@"￥"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"€" titleString:@"€"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"→" titleString:@"→"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"←" titleString:@"←"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"↑" titleString:@"↑"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"↓" titleString:@"↓"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"" titleString:@""]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"®" titleString:@"®"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"©" titleString:@"©"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"™" titleString:@"™"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"•" titleString:@"•"]];
+    [_allInserStringList addObject:[WKInputAccessoryViewInsertString insertString:@"◉" titleString:@"◉"]];
     
-    for (int a=0; a<total; a++) {
+    
+    for (int a=0; a<VISIBLE_BUTTONS_TOTAL; a++) {
         _usingInsertStringIndexList[a]=[NSNumber numberWithInt:a];
     }
     [self read];

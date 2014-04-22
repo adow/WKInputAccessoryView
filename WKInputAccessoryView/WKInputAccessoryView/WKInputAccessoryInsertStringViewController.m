@@ -8,10 +8,13 @@
 
 #import "WKInputAccessoryInsertStringViewController.h"
 #import "WKInputAccessoryViewInsertStringBundle.h"
+#define INSERTSTRING_CELL @"isnertstring-cell"
 @interface WKInputAccessoryInsertStringViewController ()<UITableViewDataSource,UITableViewDelegate>{
     
 }
 @property (nonatomic,retain) UITableView* tableView;
+///可以替换的按键列表
+@property (nonatomic,retain) NSArray *insertStringListForSelection;
 @end
 
 @implementation WKInputAccessoryInsertStringViewController
@@ -32,11 +35,12 @@
     self.navigationItem.title=@"选择符号";
     self.view.backgroundColor=[UIColor whiteColor];
     self.navigationItem.leftBarButtonItem=[[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onButtonCancel:)] autorelease];
-    
+    self.insertStringListForSelection=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringListForSelection];
     if (!_tableView){
         _tableView=[[UITableView alloc]initWithFrame:self.view.bounds];
         _tableView.dataSource=self;
         _tableView.delegate=self;
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:INSERTSTRING_CELL];
         [self.view addSubview:_tableView];
     }
 }
@@ -47,6 +51,7 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)dealloc{
+    [_insertStringListForSelection release];
     [_tableView release];
     [super dealloc];
 }
@@ -61,18 +66,14 @@
 }
 #pragma mark - UITableViewDataSource and UITableViewDelegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle].insertStringListForSelection.count;
+    return self.insertStringListForSelection.count;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString* identity=@"insertstring-cell";
-    UITableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:identity];
-    if (!cell){
-        cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identity] autorelease];
-        WKInputAccessoryViewInsertString* insertString=[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle].insertStringListForSelection[indexPath.row];
-        cell.textLabel.text=insertString.titleString;
-        cell.textLabel.textAlignment=NSTextAlignmentCenter;
-        cell.textLabel.textColor=[UIColor colorWithRed:0 green:0.46 blue:1 alpha:1];
-    }
+    UITableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:INSERTSTRING_CELL];
+    WKInputAccessoryViewInsertString* insertString=self.insertStringListForSelection[indexPath.row];
+    cell.textLabel.text=insertString.titleString;
+    cell.textLabel.textAlignment=NSTextAlignmentCenter;
+    cell.textLabel.textColor=[UIColor colorWithRed:0 green:0.46 blue:1 alpha:1];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
