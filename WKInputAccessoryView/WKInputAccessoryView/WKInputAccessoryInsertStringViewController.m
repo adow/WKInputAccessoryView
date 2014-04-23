@@ -35,7 +35,7 @@
     self.navigationItem.title=@"选择符号";
     self.view.backgroundColor=[UIColor whiteColor];
     self.navigationItem.leftBarButtonItem=[[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onButtonCancel:)] autorelease];
-    self.insertStringListForSelection=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringListForSelection];
+    self.insertStringListForSelection=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] invisibleStringList];
     if (!_tableView){
         _tableView=[[UITableView alloc]initWithFrame:self.view.bounds];
         _tableView.dataSource=self;
@@ -77,7 +77,8 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] setInsertStringIndex:indexPath.row atPosition:self.insertStringPosition];
+    WKInputAccessoryViewInsertString* newString=[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle].invisibleStringList[indexPath.row];
+    [[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] replaceStringInVisible:self.insertString withStringInInvisible:newString];
     [self closeViewController];
 }
 @end

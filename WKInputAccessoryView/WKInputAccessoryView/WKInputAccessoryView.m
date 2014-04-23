@@ -139,8 +139,9 @@
 }
 -(IBAction)onButton:(id)sender{
     WKInputAccessoryViewButton* button=(WKInputAccessoryViewButton*)sender;
-    int index=button.indexOfInsertStringBundle;
-    WKInputAccessoryViewInsertString* insertString=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringAtPosition:index];
+    [self insertStringInText:button.insertString];
+}
+-(void)insertStringInText:(WKInputAccessoryViewInsertString*)insertString{
     self.targetTextView.scrollEnabled=NO;
     NSRange range=self.targetTextView.selectedRange;
     NSString* string_1=[self.targetTextView.text substringToIndex:range.location];
@@ -155,21 +156,19 @@
     self.targetTextView.text=string_3;
     self.targetTextView.selectedRange=range;
     self.targetTextView.scrollEnabled=YES;
-//    [self showInsertStringViewControllerForButonPosition:button.tag];
 }
 -(void)onLongPressGesture:(UIGestureRecognizer*)recognizer{
     if (recognizer.state==UIGestureRecognizerStateBegan){
         NSLog(@"longpress");
         WKInputAccessoryViewButton* button=(WKInputAccessoryViewButton*)recognizer.view;
-        int index=button.indexOfInsertStringBundle;
-        [self showInsertStringViewControllerForButonPosition:index];
+        [self showInsertStringViewControllerForInsertString:button.insertString];
     }
 }
 ///显示字符选择界面，为哪个按钮设置
--(void)showInsertStringViewControllerForButonPosition:(int)position{
+-(void)showInsertStringViewControllerForInsertString:(WKInputAccessoryViewInsertString*)insertString{
     _storeTextViewRange=self.targetTextView.selectedRange;
     WKInputAccessoryInsertStringViewController* insertViewController=[[[WKInputAccessoryInsertStringViewController alloc]init] autorelease];
-    insertViewController.insertStringPosition=position;
+    insertViewController.insertString=insertString;
     UINavigationController* navigationViewController=[[[UINavigationController alloc]initWithRootViewController:insertViewController] autorelease];
     [self.parentViewControler presentViewController:navigationViewController animated:YES completion:^{
         

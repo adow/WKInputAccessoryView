@@ -8,6 +8,9 @@
 
 #import "WKInputAccessoryViewButton.h"
 #import "WKInputAccessoryViewInsertStringBundle.h"
+@interface WKInputAccessoryViewButton()
+
+@end
 @implementation WKInputAccessoryViewButton
 
 - (id)initWithFrame:(CGRect)frame
@@ -36,10 +39,11 @@
 }
 */
 -(void)dealloc{
+    [_insertString release];
     [super dealloc];
 }
 -(void)refreshButtonTitle{
-    WKInputAccessoryViewInsertString* insertString=[[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] insertStringAtPosition:self.indexOfInsertStringBundle];
-    [self setTitle:insertString.titleString forState:UIControlStateNormal];
+    self.insertString=[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle].visibleStringList[self.indexOfInsertStringBundle];
+    [self setTitle:self.insertString.titleString forState:UIControlStateNormal];
 }
 @end

@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WKInputAccessoryViewInsertStringBundle.h"
 #define WKINPUTACCESSORYINSERTSTRINGVIEWCONTROLLER_NOTIFICATION_CLOSE_VIEWCONTROLLER @"WKINPUTACCESSORYINSERTSTRINGVIEWCONTROLLER_NOTIFICATION_CLOSE_VIEWCONTROLLER"
+#define WKINPUTACCESSORYINSERTSTRINGVIEWCONTROLLER_NOTIFICATION_INSERTSTRING @"WKINPUTACCESSORYINSERTSTRINGVIEWCONTROLLER_NOTIFICATION_INSERTSTRING"
 @interface WKInputAccessoryInsertStringViewController : UIViewController{
     
 }
 ///正在使用的第几个按钮
 @property (nonatomic,assign) int insertStringPosition;
+///当前正在使用的按钮的插入字符
+@property (nonatomic,retain) WKInputAccessoryViewInsertString* insertString;
 @end
