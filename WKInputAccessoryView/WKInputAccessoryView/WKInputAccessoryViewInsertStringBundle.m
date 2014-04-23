@@ -7,7 +7,7 @@
 //
 
 #import "WKInputAccessoryViewInsertStringBundle.h"
-#define VISIBLE_BUTTONS_TOTAL 6 ///可见的按钮数量
+
 @implementation WKInputAccessoryViewInsertString
 -(instancetype)initWithInsertString:(NSString *)insertString
                         titleString:(NSString*)titleString

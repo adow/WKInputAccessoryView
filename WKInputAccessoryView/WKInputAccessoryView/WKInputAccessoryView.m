@@ -33,9 +33,6 @@
     if (self){
         self.targetTextView=textView;
         self.backgroundColor=[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-        
-
-        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardWillShowNotification object:nil];
@@ -51,7 +48,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(notificationInsertStringViewControllerClose:)
                                                      name:WKINPUTACCESSORYINSERTSTRINGVIEWCONTROLLER_NOTIFICATION_CLOSE_VIEWCONTROLLER object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationInsertString:) name:WKINPUTACCESSORYINSERTSTRINGVIEWCONTROLLER_NOTIFICATION_INSERTSTRING object:nil];
         [self rebuildButtons];
         
     }
@@ -59,9 +55,11 @@
 }
 -(void)dealloc{
     [_buttons release];
+    [_touchPadView release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
+#pragma mark - Action
 -(void)rebuildButtons{
     for (WKInputAccessoryViewButton *button in _buttons) {
         [button removeFromSuperview];
@@ -72,7 +70,7 @@
     [_touchPadView release];
     _touchPadView=nil;
     
-    int button_total=6;
+    int button_total=VISIBLE_BUTTONS_TOTAL;
     CGFloat margin=2.0f;
     CGFloat button_height=40.0f;
     CGFloat pad_width=56.0f;
@@ -109,13 +107,17 @@
         [button refreshButtonTitle];
     }
 }
-#pragma mark - WKInputAccessoryViewButtonDelegate
--(void)touchOnButton:(WKInputAccessoryViewButton *)button{
-    [self insertStringInText:button.insertString];
+///显示字符选择界面，替换按钮
+-(void)showInsertStringViewControllerForInsertString:(WKInputAccessoryViewInsertString*)insertString{
+    _storeTextViewRange=self.targetTextView.selectedRange;
+    WKInputAccessoryInsertStringViewController* insertViewController=[[[WKInputAccessoryInsertStringViewController alloc]init] autorelease];
+    insertViewController.insertString=insertString;
+    UINavigationController* navigationViewController=[[[UINavigationController alloc]initWithRootViewController:insertViewController] autorelease];
+    [self.parentViewControler presentViewController:navigationViewController animated:YES completion:^{
+        
+    }];
 }
--(void)longPressOnButton:(WKInputAccessoryViewButton *)button{
-    [self showInsertStringViewControllerForInsertString:button.insertString];
-}
+///在文本框中插入选中的内容
 -(void)insertStringInText:(WKInputAccessoryViewInsertString*)insertString{
     self.targetTextView.scrollEnabled=NO;
     NSRange range=self.targetTextView.selectedRange;
@@ -132,16 +134,14 @@
     self.targetTextView.selectedRange=range;
     self.targetTextView.scrollEnabled=YES;
 }
-///显示字符选择界面，为哪个按钮设置
--(void)showInsertStringViewControllerForInsertString:(WKInputAccessoryViewInsertString*)insertString{
-    _storeTextViewRange=self.targetTextView.selectedRange;
-    WKInputAccessoryInsertStringViewController* insertViewController=[[[WKInputAccessoryInsertStringViewController alloc]init] autorelease];
-    insertViewController.insertString=insertString;
-    UINavigationController* navigationViewController=[[[UINavigationController alloc]initWithRootViewController:insertViewController] autorelease];
-    [self.parentViewControler presentViewController:navigationViewController animated:YES completion:^{
-        
-    }];
+#pragma mark - WKInputAccessoryViewButtonDelegate
+-(void)touchOnButton:(WKInputAccessoryViewButton *)button{
+    [self insertStringInText:button.insertString];
 }
+-(void)longPressOnButton:(WKInputAccessoryViewButton *)button{
+    [self showInsertStringViewControllerForInsertString:button.insertString];
+}
+#pragma mark - TouchPad
 ///Touch pad 移动
 -(void)onPanGesture:(UIPanGestureRecognizer*)recognizer{
     if (recognizer.state==UIGestureRecognizerStateBegan){
@@ -250,8 +250,5 @@
     });
     
 }
--(void)notificationInsertString:(NSNotification*)notification{
-    WKInputAccessoryViewInsertString* insertString=notification.object;
-    [self insertStringInText:insertString];
-}
+
 @end

@@ -80,7 +80,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     WKInputAccessoryViewInsertString* newString=[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle].invisibleStringList[indexPath.row];
     [[WKInputAccessoryViewInsertStringBundle sharedInsertStringBundle] replaceStringInVisible:self.insertString withStringInInvisible:newString];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:WKINPUTACCESSORYINSERTSTRINGVIEWCONTROLLER_NOTIFICATION_INSERTSTRING object:newString];
+
     [self closeViewController];
     
 }

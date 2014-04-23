@@ -11,7 +11,9 @@
 #define WKINPUTACCESSORYVIEWBUTTON_CURSION_POSITION_ENDOFINSERTPOSITION -1 ///光标在插入字符串的后面
 @class WKInputAccessoryViewButton;
 @protocol WKInputAccessoryViewButtonDelegate <NSObject>
+///触发按钮时
 -(void)touchOnButton:(WKInputAccessoryViewButton*)button;
+///长按时
 -(void)longPressOnButton:(WKInputAccessoryViewButton*)button;
 @end
 @interface WKInputAccessoryViewButton : UIButton{

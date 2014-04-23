@@ -13,8 +13,6 @@
 @interface WKInputAccessoryInsertStringViewController : UIViewController{
     
 }
-///正在使用的第几个按钮
-@property (nonatomic,assign) int insertStringPosition;
 ///当前正在使用的按钮的插入字符
 @property (nonatomic,retain) WKInputAccessoryViewInsertString* insertString;
 @end

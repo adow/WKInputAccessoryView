@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #define WKINPUTACCESSORYVIEWINSERTSTRING_CURSOR_POSITION_ENDOFINSERTSTRING -1 ///在插入字符串的后面显示光标
 #define WKINPUTACCESSORYVIEWINSERTSTRING_KEY_USINGINSERTSTRINGINDEXLIST @"adow.wkinputaccessoryview.usinginsertstringindexlist.2" ///存储的键值
+#define VISIBLE_BUTTONS_TOTAL 6 ///可见的按钮数量
 @interface WKInputAccessoryViewInsertString:NSObject{
     
 }
@@ -35,8 +36,9 @@
 
 @end
 @interface WKInputAccessoryViewInsertStringBundle : NSObject{
-    ///全部可用的插入符号
+    ///全部可用的字符串
     NSMutableArray* _allStringList;
+    ///可见的字符串
     NSMutableArray* _visibleStringList;
 }
 +(WKInputAccessoryViewInsertStringBundle*)sharedInsertStringBundle;
@@ -44,14 +46,16 @@
 @property (nonatomic,readonly) NSArray* visibleStringList;
 ///可以用来替换的字符串
 @property (nonatomic,readonly) NSArray* invisibleStringList;
+///全部字符串
 @property (nonatomic,readonly) NSArray* allStringList;
 #pragma mark - action
 ///写入
 -(void)write;
 ///读取
 -(void)read;
-///根据key去的符号
+///根据key取的字符串
 -(WKInputAccessoryViewInsertString*)insertStringForKey:(NSString*)key;
+///替换可见的字符串
 -(void)replaceStringInVisible:(WKInputAccessoryViewInsertString*)stringInVisible
         withStringInInvisible:(WKInputAccessoryViewInsertString*)stringInInvisible;
 @end
