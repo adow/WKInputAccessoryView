@@ -13,7 +13,7 @@
 ///完成编辑时发出的回调
 -(void)targetTextViewDidCompleteEdit;
 @end
-@interface WKInputAccessoryView : UIView{
+@interface WKInputAccessoryView : UIView<WKInputAccessoryViewButtonDelegate>{
     ///在键盘退出时记录光标的位置
     NSRange _storeTextViewRange;
     ///记录键盘位置
