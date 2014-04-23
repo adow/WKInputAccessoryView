@@ -12,6 +12,10 @@
 @optional
 ///完成编辑时发出的回调
 -(void)targetTextViewDidCompleteEdit;
+///点击保存时的回调
+-(void)saveOnTargetTextView:(UITextView*)textView;
+///点击取消时的回调
+-(void)cancelOnTargetTextView:(UITextView*)textView;
 @end
 @interface WKInputAccessoryView : UIView<WKInputAccessoryViewButtonDelegate>{
     ///在键盘退出时记录光标的位置

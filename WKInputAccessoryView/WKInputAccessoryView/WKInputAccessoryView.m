@@ -9,7 +9,7 @@
 #import "WKInputAccessoryView.h"
 #import "WKInputAccessoryViewInsertStringBundle.h"
 #import "WKInputAccessoryInsertStringViewController.h"
-#define WKInputAccessoryViewTouchPadMoveKeyboardMaxY 100.0f ///移动键盘到这个位置就让键盘小时
+#define WKInputAccessoryViewTouchPadMoveKeyboardMaxY 100.0f ///移动键盘到这个位置就让键盘消失
 #define WKInputAccessoryViewTouchPadMoveKeyboardMinY 20.0f ///只有Y移动超过这么多才认为是在移动键盘
 #define WKInputAccessoryViewTouchPadMoveCursorMinX 20.0f ///只有x移动查过这么多才认为是在移动光标
 #define WKInputAccessoryViewTouchPadMoveCursorStep 30.0f ///每个字符的光标的移动距离
@@ -136,7 +136,20 @@
 }
 #pragma mark - WKInputAccessoryViewButtonDelegate
 -(void)touchOnButton:(WKInputAccessoryViewButton *)button{
-    [self insertStringInText:button.insertString];
+    if (button.insertString.insertString){
+        [self insertStringInText:button.insertString];
+    }
+    else if ([button.insertString.key isEqualToString:@"cmd-save"]){
+        if ([self.delegate respondsToSelector:@selector(saveOnTargetTextView:)]){
+            [self.delegate saveOnTargetTextView:self.targetTextView];
+        }
+    }
+    else if ([button.insertString.key isEqualToString:@"cmd-cancel"]){
+        [self.targetTextView resignFirstResponder];
+        if ([self.delegate respondsToSelector:@selector(cancelOnTargetTextView:)]){
+            [self.delegate cancelOnTargetTextView:self.targetTextView];
+        }
+    }
 }
 -(void)longPressOnButton:(WKInputAccessoryViewButton *)button{
     [self showInsertStringViewControllerForInsertString:button.insertString];

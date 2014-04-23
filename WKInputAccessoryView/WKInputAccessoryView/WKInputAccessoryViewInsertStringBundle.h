@@ -10,6 +10,7 @@
 #define WKINPUTACCESSORYVIEWINSERTSTRING_CURSOR_POSITION_ENDOFINSERTSTRING -1 ///在插入字符串的后面显示光标
 #define WKINPUTACCESSORYVIEWINSERTSTRING_KEY_USINGINSERTSTRINGINDEXLIST @"adow.wkinputaccessoryview.usinginsertstringindexlist.2" ///存储的键值
 #define VISIBLE_BUTTONS_TOTAL 6 ///可见的按钮数量
+
 @interface WKInputAccessoryViewInsertString:NSObject{
     
 }

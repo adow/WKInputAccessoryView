@@ -112,6 +112,8 @@
     [self addInsertString:@"™" titleString:@"™" key:@"trademark"];
     [self addInsertString:@"•" titleString:@"•" key:@"circle-small"];
     [self addInsertString:@"◉" titleString:@"◉" key:@"circle-big"];
+    [self addInsertString:nil titleString:@"保存" key:@"cmd-save"];
+    [self addInsertString:nil titleString:@"取消" key:@"cmd-cancel"];
 
     _visibleStringList=[[NSMutableArray alloc]init];
     for (int a=0; a<VISIBLE_BUTTONS_TOTAL; a++) {

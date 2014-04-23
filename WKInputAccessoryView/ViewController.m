@@ -49,4 +49,10 @@
 -(void)targetTextViewDidCompleteEdit{
     NSLog(@"targetTextViewDidCompleteEdit");
 }
+-(void)saveOnTargetTextView:(UITextView *)textView{
+    NSLog(@"save:%@",textView.text);
+}
+-(void)cancelOnTargetTextView:(UITextView *)textView{
+    NSLog(@"cancel:%@",textView.text);
+}
 @end
