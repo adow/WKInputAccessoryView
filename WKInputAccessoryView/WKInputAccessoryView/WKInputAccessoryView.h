@@ -22,15 +22,10 @@
     UIView* _keyboardView;
     ///键盘是否在被移除
     BOOL _keyboardRemoving;
+    NSArray* _buttons;
 }
 -(instancetype)initWithTargetTextView:(UITextView*)textView;
 @property (nonatomic,assign) UITextView* targetTextView;
 @property (nonatomic,assign) UIViewController* parentViewControler;
-@property (nonatomic,retain) WKInputAccessoryViewButton* button_1;
-@property (nonatomic,retain) WKInputAccessoryViewButton* button_2;
-@property (nonatomic,retain) WKInputAccessoryViewButton* button_3;
-@property (nonatomic,retain) WKInputAccessoryViewButton* button_4;
-@property (nonatomic,retain) WKInputAccessoryViewButton* button_5;
-@property (nonatomic,retain) WKInputAccessoryViewButton* button_6;
 @property (nonatomic,assign) id<WKInputAccessoryViewDelegate> delegate;
 @end

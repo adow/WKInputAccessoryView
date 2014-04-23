@@ -33,43 +33,36 @@
     if (self){
         self.targetTextView=textView;
         self.backgroundColor=[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-        CGRect buttonFrame=CGRectMake(2.0f, 2.0f, 40.0f, 40.0f);
+        int button_total=6;
+        CGFloat margin=2.0f;
+        CGFloat button_height=40.0f;
+        CGFloat pad_width=56.0f;
+        CGFloat pad_height=40.0f;
+        CGFloat button_width=(self.frame.size.width-pad_width-margin*(button_total+2))/button_total;
         
-        
-        _button_1=[[WKInputAccessoryViewButton alloc]initWithFrame:buttonFrame indexOfInsertStringBundle:0];
-        _button_1.tag=0;
-        _button_1.delegate=self;
-        [self addSubview:_button_1];
-        
-        _button_2=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, 44.0f, 0.0f) indexOfInsertStringBundle:1];
-        _button_2.tag=1;
-        _button_2.delegate=self;
-        [self addSubview:_button_2];
-        
-        _button_3=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, 88.0f, 0.0f) indexOfInsertStringBundle:2];
-        _button_3.tag=2;
-        _button_3.delegate=self;
-        [self addSubview:_button_3];
-        
-        UIView* touchPadView=[[[UIView alloc]initWithFrame:CGRectMake(132.0f, 2.0f, 56.0f, 40.0f)] autorelease];
+        UIView* touchPadView=[[[UIView alloc]initWithFrame:CGRectMake((self.frame.size.width-pad_width)/2, margin,
+                                                                      pad_width, pad_height)] autorelease];
         touchPadView.backgroundColor=[UIColor grayColor];
         [self addSubview:touchPadView];
+        UIPanGestureRecognizer* panGesture=[[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(onPanGesture:)] autorelease];
+        [touchPadView addGestureRecognizer:panGesture];
         
-        buttonFrame=CGRectMake(320.0f-42.0f, 2.0f, 40.0f, 40.0f);
-        _button_4=[[WKInputAccessoryViewButton alloc]initWithFrame:buttonFrame indexOfInsertStringBundle:3];
-        _button_4.tag=3;
-        _button_1.delegate=self;
-        [self addSubview:_button_4];
-        
-        _button_5=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, -44.0f, 0.0f) indexOfInsertStringBundle:4];
-        _button_5.tag=4;
-        _button_5.delegate=self;
-        [self addSubview:_button_5];
-        
-        _button_6=[[WKInputAccessoryViewButton alloc]initWithFrame:CGRectOffset(buttonFrame, -88.0f, 0.0f) indexOfInsertStringBundle:5];
-        _button_6.tag=5;
-        _button_6.delegate=self;
-        [self addSubview:_button_6];
+        NSMutableArray *buttons=[NSMutableArray array];
+        for (int a=0; a<button_total; a++) {
+            CGFloat left=margin;
+            if (a<button_total/2){
+                left=(margin+button_width)*a+margin;
+            }
+            else{
+                left=self.frame.size.width-(margin+button_width)*(button_total-a);
+            }
+            CGRect buttonFrame=CGRectMake(left, margin, button_width, button_height);
+            WKInputAccessoryViewButton* button=[[WKInputAccessoryViewButton alloc]initWithFrame:buttonFrame indexOfInsertStringBundle:a];
+            button.delegate=self;
+            [self addSubview:button];
+            [buttons addObject:button];
+        }
+        _buttons=[[NSArray alloc]initWithArray:buttons];
 
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -93,24 +86,16 @@
     return self;
 }
 -(void)dealloc{
-    [_button_1 release];
-    [_button_2 release];
-    [_button_3 release];
-    [_button_4 release];
-    [_button_5 release];
-    [_button_6 release];
+    [_buttons release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
 ///按钮上内容刷新
 -(void)refreshbutton{
-    [_button_1 refreshButtonTitle];
-    [_button_2 refreshButtonTitle];
-    [_button_3 refreshButtonTitle];
-    [_button_4 refreshButtonTitle];
-    [_button_5 refreshButtonTitle];
-    [_button_6 refreshButtonTitle];
+    for (WKInputAccessoryViewButton* button in _buttons) {
+        [button refreshButtonTitle];
+    }
 }
 #pragma mark - WKInputAccessoryViewButtonDelegate
 -(void)touchOnButton:(WKInputAccessoryViewButton *)button{
