@@ -40,6 +40,7 @@
         _tableView=[[UITableView alloc]initWithFrame:self.view.bounds];
         _tableView.dataSource=self;
         _tableView.delegate=self;
+        _tableView.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:INSERTSTRING_CELL];
         [self.view addSubview:_tableView];
     }

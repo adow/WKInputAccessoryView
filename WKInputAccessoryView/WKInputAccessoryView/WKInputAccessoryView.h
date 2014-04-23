@@ -28,4 +28,6 @@
 @property (nonatomic,assign) UITextView* targetTextView;
 @property (nonatomic,assign) UIViewController* parentViewControler;
 @property (nonatomic,assign) id<WKInputAccessoryViewDelegate> delegate;
+///重建全部按钮,在旋转的时候重建全部按钮
+-(void)rebuildButtons;
 @end

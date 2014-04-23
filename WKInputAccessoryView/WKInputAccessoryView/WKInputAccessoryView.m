@@ -16,7 +16,7 @@
 @interface WKInputAccessoryView(){
     
 }
-
+@property (nonatomic,retain) UIView *touchPadView;
 @end
 @implementation WKInputAccessoryView
 
@@ -33,36 +33,7 @@
     if (self){
         self.targetTextView=textView;
         self.backgroundColor=[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-        int button_total=6;
-        CGFloat margin=2.0f;
-        CGFloat button_height=40.0f;
-        CGFloat pad_width=56.0f;
-        CGFloat pad_height=40.0f;
-        CGFloat button_width=(self.frame.size.width-pad_width-margin*(button_total+2))/button_total;
         
-        UIView* touchPadView=[[[UIView alloc]initWithFrame:CGRectMake((self.frame.size.width-pad_width)/2, margin,
-                                                                      pad_width, pad_height)] autorelease];
-        touchPadView.backgroundColor=[UIColor grayColor];
-        [self addSubview:touchPadView];
-        UIPanGestureRecognizer* panGesture=[[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(onPanGesture:)] autorelease];
-        [touchPadView addGestureRecognizer:panGesture];
-        
-        NSMutableArray *buttons=[NSMutableArray array];
-        for (int a=0; a<button_total; a++) {
-            CGFloat left=margin;
-            if (a<button_total/2){
-                left=(margin+button_width)*a+margin;
-            }
-            else{
-                left=self.frame.size.width-(margin+button_width)*(button_total-a);
-            }
-            CGRect buttonFrame=CGRectMake(left, margin, button_width, button_height);
-            WKInputAccessoryViewButton* button=[[WKInputAccessoryViewButton alloc]initWithFrame:buttonFrame indexOfInsertStringBundle:a];
-            button.delegate=self;
-            [self addSubview:button];
-            [buttons addObject:button];
-        }
-        _buttons=[[NSArray alloc]initWithArray:buttons];
 
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -81,6 +52,7 @@
                                                  selector:@selector(notificationInsertStringViewControllerClose:)
                                                      name:WKINPUTACCESSORYINSERTSTRINGVIEWCONTROLLER_NOTIFICATION_CLOSE_VIEWCONTROLLER object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationInsertString:) name:WKINPUTACCESSORYINSERTSTRINGVIEWCONTROLLER_NOTIFICATION_INSERTSTRING object:nil];
+        [self rebuildButtons];
         
     }
     return self;
@@ -90,9 +62,49 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
-
+-(void)rebuildButtons{
+    for (WKInputAccessoryViewButton *button in _buttons) {
+        [button removeFromSuperview];
+    }
+    [_buttons release];
+    _buttons=nil;
+    [_touchPadView removeFromSuperview];
+    [_touchPadView release];
+    _touchPadView=nil;
+    
+    int button_total=6;
+    CGFloat margin=2.0f;
+    CGFloat button_height=40.0f;
+    CGFloat pad_width=56.0f;
+    CGFloat pad_height=40.0f;
+    CGFloat button_width=(self.frame.size.width-pad_width-margin*(button_total+2))/button_total;
+    
+    _touchPadView=[[UIView alloc]initWithFrame:CGRectMake((self.frame.size.width-pad_width)/2, margin,
+                                                                  pad_width, pad_height)];
+    _touchPadView.backgroundColor=[UIColor grayColor];
+    [self addSubview:_touchPadView];
+    UIPanGestureRecognizer* panGesture=[[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(onPanGesture:)] autorelease];
+    [_touchPadView addGestureRecognizer:panGesture];
+    
+    NSMutableArray *buttons=[NSMutableArray array];
+    for (int a=0; a<button_total; a++) {
+        CGFloat left=margin;
+        if (a<button_total/2){
+            left=(margin+button_width)*a+margin;
+        }
+        else{
+            left=self.frame.size.width-(margin+button_width)*(button_total-a);
+        }
+        CGRect buttonFrame=CGRectMake(left, margin, button_width, button_height);
+        WKInputAccessoryViewButton* button=[[WKInputAccessoryViewButton alloc]initWithFrame:buttonFrame indexOfInsertStringBundle:a];
+        button.delegate=self;
+        [self addSubview:button];
+        [buttons addObject:button];
+    }
+    _buttons=[[NSArray alloc]initWithArray:buttons];
+}
 ///按钮上内容刷新
--(void)refreshbutton{
+-(void)refreshbuttonTitle{
     for (WKInputAccessoryViewButton* button in _buttons) {
         [button refreshButtonTitle];
     }
@@ -212,7 +224,7 @@
 #pragma mark keyboard
 -(void)keyboardWillShow:(NSNotification*)notification{
     NSLog(@"keyboardWillShow");
-    [self refreshbutton];
+    [self refreshbuttonTitle];
 }
 -(void)keyboardDidShow:(NSNotification*)notification{
     NSLog(@"keyboardDidShow");
