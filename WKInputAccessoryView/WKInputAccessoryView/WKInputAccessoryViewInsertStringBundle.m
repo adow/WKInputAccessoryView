@@ -87,6 +87,7 @@
     [self addInsertString:@"/" titleString:@"/" key:@"slash"];
     [self addInsertString:@"\\" titleString:@"\\" key:@"backslash"];
     [self addInsertString:@"+" titleString:@"+" key:@"plus"];
+    [self addInsertString:@"=" titleString:@"=" key:@"equal"];
     [self addInsertString:@"|" titleString:@"|" key:@"vertical"];
     [self addInsertString:@"{}" titleString:@"{" cursorPosition:1 key:@"open-brace"];
     [self addInsertString:@"}" titleString:@"}" key:@"close-brace"];
