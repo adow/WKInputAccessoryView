@@ -2,8 +2,6 @@
 
 iOS键盘辅助工具按钮
 
-现在只是一个最简单的版本，只够能正常运行，只是临时随便写写的所以其中的代码还需要重构。
-
 [点击查看效果视频](http://v.youku.com/v_show/id_XNzAzNDg1NzAw.html)
 
 ![WKInputAccessoryView](http://farm8.staticflickr.com/7309/12628599893_785fefcf94_o.png)
