@@ -200,8 +200,8 @@
                             _keyboardView.hidden=NO;
                             _keyboardView=nil;
                         });
-                        if ([self.delegate respondsToSelector:@selector(targetTextViewDidCompleteEdit)]){
-                            [self.delegate targetTextViewDidCompleteEdit];
+                        if ([self.delegate respondsToSelector:@selector(saveAndCompleteOnTargetTextView:)]){
+                            [self.delegate saveAndCompleteOnTargetTextView:self.targetTextView];
                         }
                         
                     }];

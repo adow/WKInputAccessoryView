@@ -46,13 +46,13 @@
     [inputAccessoryView rebuildButtons];
 }
 #pragma mark - WKInputAccessoryViewDelegate
--(void)targetTextViewDidCompleteEdit{
-    NSLog(@"targetTextViewDidCompleteEdit");
-}
 -(void)saveOnTargetTextView:(UITextView *)textView{
     NSLog(@"save:%@",textView.text);
 }
 -(void)cancelOnTargetTextView:(UITextView *)textView{
     NSLog(@"cancel:%@",textView.text);
+}
+-(void)saveAndCompleteOnTargetTextView:(UITextView *)textView{
+    NSLog(@"saveAndComplete:%@",textView.text);
 }
 @end
